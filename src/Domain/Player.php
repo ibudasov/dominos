@@ -3,10 +3,9 @@
 declare(strict_types=1);
 
 namespace Dominos\Domain;
-use Dominos\Domain\Tile;
 
-class Player {
-
+class Player
+{
     /**
      * @var Tile[]
      */
@@ -14,9 +13,11 @@ class Player {
 
     /**
      * @param Tile $tile
-     * @return integer
+     *
+     * @return int
      */
-    public function pullTile(Tile $tile): int {
+    public function pullTile(Tile $tile): int
+    {
         $this->theHand[] = $tile;
 
         return \count($this->theHand);

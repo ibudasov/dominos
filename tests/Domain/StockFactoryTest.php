@@ -10,9 +10,8 @@ class StockFactoryTest extends TestCase
 {
     public function testThatStockCanBeCreated(): void
     {
-        $stockFactory = new StockFactory();
+        $stock = StockFactory::createStockWith28Tiles();
 
-        $stock = $stockFactory->createStockWith28Tiles();
         self::assertInstanceOf(Stock::class, $stock);
     }
 }

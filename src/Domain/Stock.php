@@ -11,7 +11,8 @@ class Stock
 
     /**
      * @param Tile $tile
-     * @return integer
+     *
+     * @return int
      */
     public function addTile(Tile $tile): int
     {
