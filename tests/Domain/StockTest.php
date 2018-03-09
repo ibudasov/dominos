@@ -9,23 +9,23 @@ use PHPUnit\Framework\TestCase;
 
 class StockTest extends TestCase
 {
-    public function testThatATileCanBePulled(): void
+    public function testThatATilieCanBeAdded(): void
     {
         $stock = new Stock();
+        $tileMock = \Mockery::mock(Tile::class);
 
-        $tile = $stock->pullRandomTile();
-
-        self::assertInstanceOf(Tile::class, $tile);
+        self::assertEquals(1, $stock->addTile($tileMock));
     }
 
-    public function testThat28TilesCanBePulled(): void
+    public function testThatATileCanBePulledWhenPresent(): void
     {
         $stock = new Stock();
+        $tileMock = \Mockery::mock(Tile::class);
 
-        for ($i = 0; $i <= 27; ++$i) {
-            $tile = $stock->pullRandomTile();
-            self::assertInstanceOf(Tile::class, $tile);
-        }
+        self::assertEquals(1, $stock->addTile($tileMock));
+        $tile = $stock->pullRandomTile();
+
+        self::assertSame($tileMock, $tile);
     }
 
     public function testThatExceptionIsThrownWhenTryingToPullATileFromEmptyStock(): void
@@ -33,8 +33,6 @@ class StockTest extends TestCase
         $this->expectException(StockIsEmptyException::class);
         $stock = new Stock();
 
-        for ($i = 0; $i <= 29; ++$i) {
-            $stock->pullRandomTile();
-        }
+        $stock->pullRandomTile();
     }
 }
