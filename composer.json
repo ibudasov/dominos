@@ -1,0 +1,38 @@
+{
+    "name": "ibudasov/dominos",
+    "description": "Dominoes is a family of games played with rectangular tiles. Each tile is divided into two square ends. Each end is marked with a number (one to six) of spots or is blank. There are 28 tiles, one for each combination of spots and blanks",
+    "require": {
+        "php": ">=7.1"
+    },
+    "autoload": {
+        "psr-4": {
+            "Dominos\\": "src"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Tests\\": "tests/"
+        }
+    },
+    "require-dev": {
+        "mockery/mockery": "^1.0",
+        "friendsofphp/php-cs-fixer": "^2.9",
+        "phpunit/phpunit": "^7.0"
+    },
+    "scripts": {
+        "fix": [
+            "vendor/bin/php-cs-fixer fix src --rules=@Symfony",
+            "vendor/bin/php-cs-fixer fix tests --rules=@Symfony"
+        ],
+        "test": "./vendor/bin/phpunit tests",
+        "test:coverage": "vendor/bin/phpunit tests --coverage-html=var/test-coverage"
+    },
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Igor Budasov",
+            "email": "igor.budasov@gmail.com"
+        }
+    ]
+}
+

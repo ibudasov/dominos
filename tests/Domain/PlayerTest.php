@@ -1,0 +1,12 @@
+<?php
+
+declare(strict_types=1);
+
+use PHPUnit\Framework\TestCase;
+
+class PlayerTest extends TestCase
+{
+    public function testThatAPlayerCanTakeATile(): void
+    {
+    }
+}
