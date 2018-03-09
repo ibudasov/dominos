@@ -25,7 +25,7 @@ class Stock
      */
     public function pullRandomTile(): Tile
     {
-        if (0 === count($this->tiles)) {
+        if (0 === \count($this->tiles)) {
             throw new StockIsEmptyException();
         }
 

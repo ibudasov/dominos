@@ -7,7 +7,7 @@ use PHPUnit\Framework\TestCase;
 
 class TileTest extends TestCase
 {
-    public function testThatTileCanBeCreatedFromArray(): void
+    public function testThatTileCanBeCreated(): void
     {
         $tile = new Tile(1, 2);
 
