@@ -9,6 +9,10 @@ class Stock
     /** @var Tile[] */
     private $tiles;
 
+    /**
+     * @param Tile $tile
+     * @return integer
+     */
     public function addTile(Tile $tile): int
     {
         $this->tiles[] = $tile;
