@@ -36,14 +36,7 @@ class Game
      */
     public function player1Pulls7Tiles(): int
     {
-        $this->player1->pullTile($this->stock->pullRandomTile());
-        $this->player1->pullTile($this->stock->pullRandomTile());
-        $this->player1->pullTile($this->stock->pullRandomTile());
-        $this->player1->pullTile($this->stock->pullRandomTile());
-        $this->player1->pullTile($this->stock->pullRandomTile());
-        $this->player1->pullTile($this->stock->pullRandomTile());
-
-        return $this->player1->pullTile($this->stock->pullRandomTile());
+        return $this->player1->pull7Tiles($this->stock);
     }
 
     /**
@@ -51,13 +44,6 @@ class Game
      */
     public function player2Pulls7Tiles(): int
     {
-        $this->player2->pullTile($this->stock->pullRandomTile());
-        $this->player2->pullTile($this->stock->pullRandomTile());
-        $this->player2->pullTile($this->stock->pullRandomTile());
-        $this->player2->pullTile($this->stock->pullRandomTile());
-        $this->player2->pullTile($this->stock->pullRandomTile());
-        $this->player2->pullTile($this->stock->pullRandomTile());
-
-        return $this->player2->pullTile($this->stock->pullRandomTile());
+        return $this->player2->pull7Tiles($this->stock);
     }
 }

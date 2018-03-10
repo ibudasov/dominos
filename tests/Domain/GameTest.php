@@ -20,15 +20,13 @@ class GameTest extends TestCase
             ->andReturn($tileMock);
 
         $player1Mock = \Mockery::mock(Player::class);
-        $player1Mock->shouldReceive('pullTile')
-            ->with($tileMock)
-            ->times(7)
+        $player1Mock->shouldReceive('pull7Tiles')
+            ->with($stockMock)
             ->andReturn(7);
 
         $player2Mock = \Mockery::mock(Player::class);
-        $player2Mock->shouldReceive('pullTile')
-            ->with($tileMock)
-            ->times(7)
+        $player2Mock->shouldReceive('pull7Tiles')
+            ->with($stockMock)
             ->andReturn(7);
 
         $game = new Game($stockMock, $player1Mock, $player2Mock);
