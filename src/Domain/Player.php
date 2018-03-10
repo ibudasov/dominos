@@ -4,8 +4,6 @@ declare(strict_types=1);
 
 namespace Dominos\Domain;
 
-use Dominos\Domain\Stock;
-
 class Player
 {
     /**
@@ -27,13 +25,15 @@ class Player
 
     /**
      * @param Stock $stock
-     * @return integer
+     *
+     * @return int
      */
-    public function pull7Tiles(Stock $stock): int {
-        for($i=0; $i<7; $i++) {
+    public function pull7Tiles(Stock $stock): int
+    {
+        for ($i = 0; $i < 7; ++$i) {
             $this->theHand[] = $stock->pullRandomTile();
         }
 
-        return \count($this->theHand);        
+        return \count($this->theHand);
     }
 }
