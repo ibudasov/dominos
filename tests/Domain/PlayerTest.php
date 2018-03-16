@@ -2,6 +2,7 @@
 
 declare(strict_types=1);
 
+use Dominos\Domain\Board;
 use Dominos\Domain\PlayerIsOutOfTilesException;
 use PHPUnit\Framework\TestCase;
 use Dominos\Domain\Player;
@@ -12,7 +13,7 @@ class PlayerTest extends TestCase
 {
     public function testThatAPlayerCanTakeATile(): void
     {
-        $player = new Player("Name");
+        $player = new Player('Name');
 
         $tileMock = \Mockery::mock(Tile::class);
         self::assertEquals(1, $player->pullTile($tileMock));
@@ -34,14 +35,27 @@ class PlayerTest extends TestCase
     {
         $player = new Player('Name');
 
+        $boardMock = \Mockery::mock(Board::class);
+        $boardMock->shouldReceive('getLeadingNumber')
+            ->once()
+            ->andReturn(2);
+        $boardMock->shouldReceive('getTrailingNumber')
+            ->once()
+            ->andReturn(1);
+
         $tileMock = \Mockery::mock(Tile::class);
         $tileMock->shouldReceive('isMatching')
             ->once()
             ->with(1)
             ->andReturn(true);
+        $tileMock->shouldReceive('isMatching')
+            ->once()
+            ->with(2)
+            ->andReturn(true);
 
         $player->pullTile($tileMock);
-        self::assertEquals($tileMock, $player->isThereMatchingTile(1));
+
+        self::assertEquals($tileMock, $player->isThereMatchingTile($boardMock));
     }
 
     public function testThatNullIsReturnedWhenThereIsNoMatchingTileInTheHand(): void
@@ -53,9 +67,21 @@ class PlayerTest extends TestCase
             ->once()
             ->with(2)
             ->andReturn(false);
+        $tileMock->shouldReceive('isMatching')
+            ->once()
+            ->with(1)
+            ->andReturn(false);
+
+        $boardMock = \Mockery::mock(Board::class);
+        $boardMock->shouldReceive('getLeadingNumber')
+            ->once()
+            ->andReturn(2);
+        $boardMock->shouldReceive('getTrailingNumber')
+            ->once()
+            ->andReturn(1);
 
         $player->pullTile($tileMock);
-        self::assertNull($player->isThereMatchingTile(2));
+        self::assertNull($player->isThereMatchingTile($boardMock));
     }
 
     public function testThatExceptionIsThrownWhenPlayerHasNoTiles(): void
@@ -63,7 +89,7 @@ class PlayerTest extends TestCase
         $this->expectException(PlayerIsOutOfTilesException::class);
 
         $player = new Player('Name');
-        $player->isThereMatchingTile(1);
+        $player->isThereMatchingTile(\Mockery::mock(Board::class));
     }
 
     public function testThatPlayerHasAName(): void
@@ -73,4 +99,3 @@ class PlayerTest extends TestCase
         self::assertEquals('Igor', (string) $player);
     }
 }
-

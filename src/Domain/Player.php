@@ -51,20 +51,18 @@ class Player
     }
 
     /**
-     * @param int $number
-     *
-     * @throws PlayerIsOutOfTilesException
+     * @param Board $board
      *
      * @return Tile|null
      */
-    public function isThereMatchingTile(int $number): ?Tile
+    public function isThereMatchingTile(Board $board): ?Tile
     {
         if (empty($this->theHand)) {
             throw new PlayerIsOutOfTilesException();
         }
 
         foreach ($this->theHand as $key => $tile) {
-            if ($tile->isMatching($number)) {
+            if ($tile->isMatching($board->getLeadingNumber()) || $tile->isMatching($board->getTrailingNumber())) {
                 unset($this->theHand[$key]);
 
                 return $tile;
