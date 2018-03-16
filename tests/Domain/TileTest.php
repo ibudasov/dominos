@@ -21,4 +21,11 @@ class TileTest extends TestCase
 
         self::assertTrue($tile->isMatching(1));
     }
+
+    public function testThatTileCanBeConvertedToString(): void
+    {
+        $tile = new Tile(1, 2);
+
+        self::assertEquals('<1:2>', (string) $tile);
+    }
 }

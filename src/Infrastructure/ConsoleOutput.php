@@ -9,6 +9,9 @@ namespace Dominos\Infrastructure;
  */
 class ConsoleOutput implements \Dominos\Domain\Output
 {
+    /**
+     * @param string $line
+     */
     public function println(string $line): void
     {
         echo $line . PHP_EOL;

@@ -50,4 +50,12 @@ class Tile
             $this->getSecondValue() === $number
         ;
     }
+
+    /**
+     * @return string
+     */
+    public function __toString(): string
+    {
+        return '<' . $this->firstValue . ':' . $this->secondValue . '>';
+    }
 }
