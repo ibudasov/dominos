@@ -28,4 +28,32 @@ class PlayerTest extends TestCase
 
         self::assertEquals(7, $player->pull7Tiles($stockMock));
     }
+
+    public function testThatUserCanDecideIsTherePatchingTileInHisOrHerHand(): void
+    {
+        $player = new Player();
+
+        $tileMock = \Mockery::mock(Tile::class);
+        $tileMock->shouldReceive('isMatching')
+            ->once()
+            ->with(1)
+            ->andReturn(true);
+
+        $player->pullTile($tileMock);
+        self::assertEquals($tileMock, $player->isThereMatchingTile(1));
+    }
+
+    public function testThatNullIsReturnedWhenThereIsNoMatchingTileInTheHand(): void
+    {
+        $player = new Player();
+
+        $tileMock = \Mockery::mock(Tile::class);
+        $tileMock->shouldReceive('isMatching')
+            ->once()
+            ->with(2)
+            ->andReturn(false);
+
+        $player->pullTile($tileMock);
+        self::assertNull($player->isThereMatchingTile(2));
+    }
 }

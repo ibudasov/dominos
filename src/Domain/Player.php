@@ -36,4 +36,19 @@ class Player
 
         return \count($this->theHand);
     }
+
+    /**
+     * @param int $number
+     * @return Tile|null
+     */
+    public function isThereMatchingTile(int $number): ?Tile
+    {
+        foreach ($this->theHand as $key => $tile) {
+            if ($tile->isMatching($number)) {
+                unset($this->theHand[$key]);
+                return $tile;
+            }
+        }
+        return null;
+    }
 }
