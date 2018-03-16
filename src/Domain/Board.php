@@ -28,7 +28,7 @@ class Board
 
         $this->updateTrailingNumber($tile);
 
-        $this->tiles[] = $tile;
+        $this->addTileToTheStackInProperOrder($tile);
 
         return \count($this->tiles);
     }
@@ -77,10 +77,22 @@ class Board
     public function __toString(): string
     {
         $result = '';
-        foreach($this->tiles as $tile) {
-            $result .= $tile . ' ';
+        foreach ($this->tiles as $tile) {
+            $result .= $tile.' ';
         }
+
         return $result;
     }
-}
 
+    /**
+     * @param Tile $tile
+     */
+    public function addTileToTheStackInProperOrder(Tile $tile): void
+    {
+        if ($tile->getFirstValue() === $this->trailingNumber || $tile->getSecondValue() === $this->trailingNumber) {
+            \array_push($this->tiles, $tile);
+        } else {
+            \array_unshift($this->tiles, $tile);
+        }
+    }
+}

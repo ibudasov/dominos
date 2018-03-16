@@ -67,5 +67,15 @@ class BoardTest extends TestCase
 
         self::assertEquals('<6:5> ', (string) $board);
     }
-}
 
+    public function testThatTilesAreBeingAddedInProperOrder(): void
+    {
+        $board = new Board();
+
+        $board->addTile(new Tile(4, 3));
+        $board->addTile(new Tile(5, 4));
+        $board->addTile(new Tile(3, 6));
+
+        self::assertEquals('<5:4> <4:3> <3:6> ', (string) $board);
+    }
+}
