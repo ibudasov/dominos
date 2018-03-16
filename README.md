@@ -1,5 +1,8 @@
 # dominos
 
+[![Maintainability](https://api.codeclimate.com/v1/badges/2236bd8d2413aa7e4a69/maintainability)](https://codeclimate.com/github/ibudasov/dominos/maintainability)
+[![Test Coverage](https://api.codeclimate.com/v1/badges/2236bd8d2413aa7e4a69/test_coverage)](https://codeclimate.com/github/ibudasov/dominos/test_coverage)
+
 Dominoes is a family of games played with rectangular tiles. Each tile is divided into two square ends. Each end is marked with a number (one to six) of spots or is blank. There are 28 tiles, one for each combination of spots and blanks (see image).
 Write a program which allows two players to play Dominoes against each other:
 
