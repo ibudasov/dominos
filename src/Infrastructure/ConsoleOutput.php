@@ -14,6 +14,6 @@ class ConsoleOutput implements \Dominos\Domain\Output
      */
     public function println(string $line): void
     {
-        echo $line . PHP_EOL;
+        echo $line.PHP_EOL;
     }
 }

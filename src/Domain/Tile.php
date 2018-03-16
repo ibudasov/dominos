@@ -56,6 +56,6 @@ class Tile
      */
     public function __toString(): string
     {
-        return '<' . $this->firstValue . ':' . $this->secondValue . '>';
+        return '<'.$this->firstValue.':'.$this->secondValue.'>';
     }
 }
