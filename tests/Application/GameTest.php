@@ -5,7 +5,7 @@ declare(strict_types=1);
 use PHPUnit\Framework\TestCase;
 use Dominos\Domain\Player;
 use Dominos\Domain\Tile;
-use Dominos\Domain\Game;
+use Dominos\Application\Game;
 use Dominos\Domain\Stock;
 
 class GameTest extends TestCase

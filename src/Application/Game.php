@@ -2,7 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Dominos\Domain;
+namespace Dominos\Application;
+
+use Dominos\Domain\Player;
+use Dominos\Domain\Stock;
 
 class Game
 {
