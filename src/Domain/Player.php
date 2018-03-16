@@ -39,16 +39,25 @@ class Player
 
     /**
      * @param int $number
+     *
+     * @throws PlayerIsOutOfTilesException
+     *
      * @return Tile|null
      */
     public function isThereMatchingTile(int $number): ?Tile
     {
+        if (empty($this->theHand)) {
+            throw new PlayerIsOutOfTilesException();
+        }
+
         foreach ($this->theHand as $key => $tile) {
             if ($tile->isMatching($number)) {
                 unset($this->theHand[$key]);
+
                 return $tile;
             }
         }
+
         return null;
     }
 }

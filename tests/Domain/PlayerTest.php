@@ -2,6 +2,7 @@
 
 declare(strict_types=1);
 
+use Dominos\Domain\PlayerIsOutOfTilesException;
 use PHPUnit\Framework\TestCase;
 use Dominos\Domain\Player;
 use Dominos\Domain\Tile;
@@ -55,5 +56,13 @@ class PlayerTest extends TestCase
 
         $player->pullTile($tileMock);
         self::assertNull($player->isThereMatchingTile(2));
+    }
+
+    public function testThatExceptionIsThrownWhenPlayerHasNoTiles(): void
+    {
+        $this->expectException(PlayerIsOutOfTilesException::class);
+
+        $player = new Player();
+        $player->isThereMatchingTile(1);
     }
 }

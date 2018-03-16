@@ -39,14 +39,15 @@ class Tile
 
     /**
      * @param int $number
+     *
      * @return bool
      */
     public function isMatching(int $number): bool
     {
-        return (
+        return
             $this->getFirstValue() === $number
             ||
             $this->getSecondValue() === $number
-        );
+        ;
     }
 }
