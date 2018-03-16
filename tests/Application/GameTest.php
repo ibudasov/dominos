@@ -3,6 +3,7 @@
 declare(strict_types=1);
 
 use Dominos\Domain\Board;
+use Dominos\Domain\Output;
 use PHPUnit\Framework\TestCase;
 use Dominos\Domain\Player;
 use Dominos\Domain\Tile;
@@ -11,7 +12,7 @@ use Dominos\Domain\Stock;
 
 class GameTest extends TestCase
 {
-    public function testThatInitiallyEachPlayerCanPull7Tiles(): void
+    public function testThatGameCanRun(): void
     {
         $tileMock = \Mockery::mock(Tile::class);
 
@@ -35,11 +36,17 @@ class GameTest extends TestCase
             ->with($stockMock)
             ->andReturn(7);
 
+
         $boardMock = \Mockery::mock(Board::class);
         $boardMock->shouldReceive('addTile')
             ->once();
 
-        $game = new Game($stockMock, $player1Mock, $player2Mock, $boardMock);
+        $outputMock = \Mockery::mock(Output::class);
+        $outputMock->shouldReceive('println')
+            ->atLeast()
+            ->once();
+
+        $game = new Game($stockMock, $player1Mock, $player2Mock, $boardMock, $outputMock);
 
         self::assertNull($game->run());
     }

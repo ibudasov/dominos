@@ -8,6 +8,7 @@ use Dominos\Application\Game;
 use Dominos\Domain\Board;
 use Dominos\Domain\Player;
 use Dominos\Domain\Stock;
+use Dominos\Infrastructure\ConsoleOutput;
 
 /**
  * @codeCoverageIgnore -- infrastructure level is not meant to be tested
@@ -20,8 +21,9 @@ class ConsoleRunner
         $player1 = new Player();
         $player2 = new Player();
         $board = new Board();
+        $output = new ConsoleOutput();
 
-        $game =  new Game($stock, $player1, $player2, $board);
+        $game =  new Game($stock, $player1, $player2, $board, $output);
         $game->run();
     }
 }
