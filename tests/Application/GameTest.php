@@ -2,6 +2,7 @@
 
 declare(strict_types=1);
 
+use Dominos\Domain\Board;
 use PHPUnit\Framework\TestCase;
 use Dominos\Domain\Player;
 use Dominos\Domain\Tile;
@@ -15,23 +16,31 @@ class GameTest extends TestCase
         $tileMock = \Mockery::mock(Tile::class);
 
         $stockMock = \Mockery::mock(Stock::class);
+        $stockMock->shouldReceive('resetAndAdd28Tiles')
+            ->once()
+            ->andReturnSelf();
         $stockMock->shouldReceive('pullRandomTile')
-            ->times(14)
+            ->times(15) // 7 for player1 + 7 for player2 + 1 for board's first tile
             ->andReturn($tileMock);
 
         $player1Mock = \Mockery::mock(Player::class);
         $player1Mock->shouldReceive('pull7Tiles')
+            ->once()
             ->with($stockMock)
             ->andReturn(7);
 
         $player2Mock = \Mockery::mock(Player::class);
         $player2Mock->shouldReceive('pull7Tiles')
+            ->once()
             ->with($stockMock)
             ->andReturn(7);
 
-        $game = new Game($stockMock, $player1Mock, $player2Mock);
+        $boardMock = \Mockery::mock(Board::class);
+        $boardMock->shouldReceive('addTile')
+            ->once();
 
-        self::assertEquals(7, $game->player1Pulls7Tiles());
-        self::assertEquals(7, $game->player2Pulls7Tiles());
+        $game = new Game($stockMock, $player1Mock, $player2Mock, $boardMock);
+
+        self::assertNull($game->run());
     }
 }

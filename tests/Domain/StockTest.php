@@ -35,4 +35,11 @@ class StockTest extends TestCase
 
         $stock->pullRandomTile();
     }
+
+    public function testThatStockCanBeInitiatedWith28Tiles(): void
+    {
+        $stock = new Stock();
+
+        self::assertInstanceOf(Stock::class, $stock->resetAndAdd28Tiles());
+    }
 }

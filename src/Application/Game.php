@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Dominos\Application;
 
+use Dominos\Domain\Board;
 use Dominos\Domain\Player;
 use Dominos\Domain\Stock;
 
@@ -23,30 +24,27 @@ class Game
     private $player2;
 
     /**
-     * @param Stock  $stock
-     * @param Player $player1
-     * @param Player $player2
+     * @var Board
      */
-    public function __construct(Stock $stock, Player $player1, Player $player2)
+    private $board;
+
+    public function __construct(Stock $stock, Player $player1, Player $player2, Board $board)
     {
         $this->stock = $stock;
         $this->player1 = $player1;
         $this->player2 = $player2;
+        $this->board = $board;
     }
 
-    /**
-     * @return int
-     */
-    public function player1Pulls7Tiles(): int
+    public function run(): void
     {
-        return $this->player1->pull7Tiles($this->stock);
-    }
+        $this->stock->resetAndAdd28Tiles();
 
-    /**
-     * @return int
-     */
-    public function player2Pulls7Tiles(): int
-    {
-        return $this->player2->pull7Tiles($this->stock);
+        $this->player1->pull7Tiles($this->stock);
+
+        $this->player2->pull7Tiles($this->stock);
+
+        $this->board->addTile($this->stock->pullRandomTile());
+
     }
 }
