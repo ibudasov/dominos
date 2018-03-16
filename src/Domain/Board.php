@@ -73,4 +73,14 @@ class Board
             ? $tile->getSecondValue()
             : $this->trailingNumber;
     }
+
+    public function __toString(): string
+    {
+        $result = '';
+        foreach($this->tiles as $tile) {
+            $result .= $tile . ' ';
+        }
+        return $result;
+    }
 }
+

@@ -58,4 +58,14 @@ class BoardTest extends TestCase
         self::assertEquals(5, $board->getLeadingNumber());
         self::assertEquals(6, $board->getTrailingNumber());
     }
+
+    public function testThatBoardCanBePrinted(): void
+    {
+        $board = new Board();
+
+        $board->addTile(new Tile(6, 5));
+
+        self::assertEquals('<6:5> ', (string) $board);
+    }
 }
+
