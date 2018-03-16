@@ -25,7 +25,8 @@
             "vendor/bin/php-cs-fixer fix tests --rules=@Symfony"
         ],
         "test": "./vendor/bin/phpunit tests",
-        "test:coverage": "vendor/bin/phpunit tests --coverage-html=var/test-coverage"
+        "test:coverage": "vendor/bin/phpunit tests --coverage-html=var/test-coverage",
+        "test:watch": "fswatch -o ./tests -o ./src | xargs -n1 -I{} ./vendor/bin/phpunit ./tests"
     },
     "license": "MIT",
     "authors": [
