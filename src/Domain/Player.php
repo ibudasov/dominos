@@ -12,6 +12,19 @@ class Player
     private $theHand;
 
     /**
+     * @var string
+     */
+    private $name;
+
+    /**
+     * @param string $name
+     */
+    public function __construct(string $name)
+    {
+        $this->name = $name;
+    }
+
+    /**
      * @param Tile $tile
      *
      * @return int
@@ -59,5 +72,13 @@ class Player
         }
 
         return null;
+    }
+
+    /**
+     * @return string
+     */
+    public function __toString(): string
+    {
+        return $this->name;
     }
 }

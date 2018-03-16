@@ -12,7 +12,7 @@ class PlayerTest extends TestCase
 {
     public function testThatAPlayerCanTakeATile(): void
     {
-        $player = new Player();
+        $player = new Player("Name");
 
         $tileMock = \Mockery::mock(Tile::class);
         self::assertEquals(1, $player->pullTile($tileMock));
@@ -21,7 +21,7 @@ class PlayerTest extends TestCase
 
     public function testThatUserCanPull7TilesFromStock(): void
     {
-        $player = new Player();
+        $player = new Player('Name');
 
         $stockMock = \Mockery::mock(Stock::class);
         $stockMock->shouldReceive('pullRandomTile')
@@ -32,7 +32,7 @@ class PlayerTest extends TestCase
 
     public function testThatUserCanDecideIsTherePatchingTileInHisOrHerHand(): void
     {
-        $player = new Player();
+        $player = new Player('Name');
 
         $tileMock = \Mockery::mock(Tile::class);
         $tileMock->shouldReceive('isMatching')
@@ -46,7 +46,7 @@ class PlayerTest extends TestCase
 
     public function testThatNullIsReturnedWhenThereIsNoMatchingTileInTheHand(): void
     {
-        $player = new Player();
+        $player = new Player('Name');
 
         $tileMock = \Mockery::mock(Tile::class);
         $tileMock->shouldReceive('isMatching')
@@ -62,7 +62,15 @@ class PlayerTest extends TestCase
     {
         $this->expectException(PlayerIsOutOfTilesException::class);
 
-        $player = new Player();
+        $player = new Player('Name');
         $player->isThereMatchingTile(1);
     }
+
+    public function testThatPlayerHasAName(): void
+    {
+        $player = new Player('Igor');
+
+        self::assertEquals('Igor', (string) $player);
+    }
 }
+
