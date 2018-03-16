@@ -14,4 +14,11 @@ class TileTest extends TestCase
         self::assertEquals(1, $tile->getFirstValue());
         self::assertEquals(2, $tile->getSecondValue());
     }
+
+    public function testThatTileCanMatchANumber(): void
+    {
+        $tile = new Tile(1, 2);
+
+        self::assertTrue($tile->isMatching(1));
+    }
 }
