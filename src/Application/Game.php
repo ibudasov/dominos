@@ -51,6 +51,13 @@ class Game
         $this->output = $output;
     }
 
+    /**
+     * @todo: introduce DomainServices and inject them here, because of business logic is leaking to application layer
+     * @todo: and partially this code can not be tested, or tested in a wrong way
+     *
+     * @todo: getTileFromTheHandOrPullFromStock can be moved to DomainService
+     * @todo: pullTilesFromStockUntilThereIsMatching can be moved to DomainService
+     */
     public function run(): void
     {
         $this->stock->resetAndAdd28Tiles();
