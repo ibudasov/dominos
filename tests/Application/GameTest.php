@@ -29,16 +29,33 @@ class GameTest extends TestCase
             ->once()
             ->with($stockMock)
             ->andReturn(7);
+        $player1Mock->shouldReceive('isThereMatchingTile')
+            ->atLeast()
+            ->once();
+        $player1Mock->shouldReceive('pullTile')
+            ->atLeast()
+            ->once();
 
         $player2Mock = \Mockery::mock(Player::class);
         $player2Mock->shouldReceive('pull7Tiles')
             ->once()
             ->with($stockMock)
             ->andReturn(7);
-
+        $player2Mock->shouldReceive('isThereMatchingTile')
+            ->atLeast()
+            ->once();
+        $player2Mock->shouldReceive('pullTile')
+            ->atLeast()
+            ->once();
 
         $boardMock = \Mockery::mock(Board::class);
         $boardMock->shouldReceive('addTile')
+            ->once();
+        $boardMock->shouldReceive('getLeadingNumber')
+            ->atLeast()
+            ->once();
+        $boardMock->shouldReceive('getTrailingNumber')
+            ->atLeast()
             ->once();
 
         $outputMock = \Mockery::mock(Output::class);

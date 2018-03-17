@@ -18,8 +18,8 @@ class ConsoleRunner
     public static function run(): void
     {
         $stock = new Stock();
-        $player1 = new Player('Igor');
-        $player2 = new Player('Kate');
+        $player1 = new Player('👨 Igor');
+        $player2 = new Player('💁 Kate');
         $board = new Board();
         $output = new ConsoleOutput();
 
