@@ -24,11 +24,11 @@ class Board
     {
         $this->setLeadingAndTrailingNumberWhenBoardsIsEmpty($tile);
 
-        $this->updateLeadingNumber($tile);
-
-        $this->updateTrailingNumber($tile);
-
         $this->addTileToTheStackInProperOrder($tile);
+
+//        $this->updateLeadingNumber($tile);
+
+//        $this->updateTrailingNumber($tile);
 
         return \count($this->tiles);
     }
@@ -59,9 +59,13 @@ class Board
      */
     private function updateLeadingNumber(Tile $tile): void
     {
-        $this->leadingNumber = ($tile->getSecondValue() === $this->leadingNumber)
-            ? $tile->getFirstValue()
-            : $this->leadingNumber;
+        if (count($this->tiles) <= 1) {
+            return;
+        }
+        $firstValueOfTheTileIsMatching = ($tile->getFirstValue() === $this->leadingNumber);
+        $this->leadingNumber = ($firstValueOfTheTileIsMatching)
+            ? $tile->getSecondValue()
+            : $tile->getFirstValue();
     }
 
     /**
@@ -69,9 +73,13 @@ class Board
      */
     private function updateTrailingNumber(Tile $tile): void
     {
-        $this->trailingNumber = ($tile->getFirstValue() === $this->trailingNumber)
+        if (count($this->tiles) <= 1) {
+            return;
+        }
+        $firstValueOfTheTileIsMatching = ($tile->getFirstValue() === $this->trailingNumber);
+        $this->trailingNumber = $firstValueOfTheTileIsMatching
             ? $tile->getSecondValue()
-            : $this->trailingNumber;
+            : $tile->getFirstValue();
     }
 
     public function __toString(): string
@@ -91,8 +99,10 @@ class Board
     {
         if ($tile->getFirstValue() === $this->trailingNumber || $tile->getSecondValue() === $this->trailingNumber) {
             \array_push($this->tiles, $tile);
+            $this->updateTrailingNumber($tile);
         } else {
             \array_unshift($this->tiles, $tile);
+            $this->updateLeadingNumber($tile);
         }
     }
 }
