@@ -36,8 +36,12 @@ class BoardTest extends TestCase
         self::assertEquals(5, $board->getLeadingNumber(), (string) $board);
         self::assertEquals(3, $board->getTrailingNumber(), (string) $board);
 
-        $board->addTile(new Tile(3, 6));
+        $board->addTile(new Tile(6, 3));
         self::assertEquals(5, $board->getLeadingNumber(), (string) $board);
+        self::assertEquals(6, $board->getTrailingNumber(), (string) $board);
+
+        $board->addTile(new Tile(5, 2));
+        self::assertEquals(2, $board->getLeadingNumber(), (string) $board);
         self::assertEquals(6, $board->getTrailingNumber(), (string) $board);
     }
 

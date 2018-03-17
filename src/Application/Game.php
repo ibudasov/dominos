@@ -9,6 +9,7 @@ use Dominos\Domain\Output;
 use Dominos\Domain\Player;
 use Dominos\Domain\PlayerIsOutOfTilesException;
 use Dominos\Domain\Stock;
+use Dominos\Domain\StockIsEmptyException;
 use Dominos\Domain\Tile;
 
 class Game
@@ -65,39 +66,69 @@ class Game
         $this->output->println('Game starting with first tile: '.$firstTile);
 
         try {
-            for ($i = 0; $i < 28 - 7 - 7 - 1; ++$i) {
+            for ($i = 0; $i < 28; ++$i) {
                 $activePlayer = $this->determineActiveUser($i);
 
-                $tile = $activePlayer->isThereMatchingTile($this->board);
-                if ($tile instanceof Tile) {
-                    $this->board->addTile($tile);
-                    $this->output->println($activePlayer.' plays tile '.$tile);
-                    $this->output->println('Board is now: '.$this->board);
-                    continue;
-                }
+                $tileToPlay = $this->getTileFromTheHandOrPullFromStock($activePlayer);
 
-                if (null === $tile) {
-                    $pulledTile = $this->stock->pullRandomTile();
-                    $activePlayer->pullTile($this->stock->pullRandomTile());
-                    $this->output->println($activePlayer.' is pulling tile '.$pulledTile);
-                }
+                $this->board->addTile($tileToPlay);
+
+                $this->output->println($activePlayer.' plays '.$tileToPlay);
+                $this->output->println('Board is now: '.$this->board);
             }
         } catch (PlayerIsOutOfTilesException $exception) {
-            die($activePlayer.' wins');
+            $this->output->println($activePlayer.' has won!');
+            exit;
+        } catch (StockIsEmptyException $exception) {
+            $this->output->println('Game over. Nobody wins.');
+            exit;
         }
     }
 
     /**
-     * @param $i
+     * @param int $i
      *
      * @return Player
      */
-    public function determineActiveUser($i): Player
+    public function determineActiveUser(int $i): Player
     {
         if (0 === $i % 2) {
             return $this->player1;
         } else {
             return $this->player2;
         }
+    }
+
+    /**
+     * @param Player $activePlayer
+     *
+     * @return Tile
+     */
+    private function getTileFromTheHandOrPullFromStock(Player $activePlayer): Tile
+    {
+        $tileToPlay = $activePlayer->isThereMatchingTile($this->board);
+        if (!$tileToPlay instanceof Tile) {
+            $tileToPlay = $this->pullTilesFromStockUntilThereIsMatching($activePlayer);
+        }
+
+        return $tileToPlay;
+    }
+
+    /**
+     * @param Player $activePlayer
+     *
+     * @return Tile
+     */
+    private function pullTilesFromStockUntilThereIsMatching(Player $activePlayer): Tile
+    {
+        do {
+            $pulledTile = $this->stock->pullRandomTile();
+            $activePlayer->pullTile($pulledTile);
+            $matchingTile = $activePlayer->isThereMatchingTile($this->board);
+
+            $this->output->println($activePlayer.' can\'t play, drawing tile '.$pulledTile);
+        } while (!$matchingTile instanceof Tile);
+
+        return $matchingTile;
     }
 }

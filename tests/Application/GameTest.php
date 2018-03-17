@@ -31,7 +31,8 @@ class GameTest extends TestCase
             ->andReturn(7);
         $player1Mock->shouldReceive('isThereMatchingTile')
             ->atLeast()
-            ->once();
+            ->once()
+            ->andReturn($tileMock);
         $player1Mock->shouldReceive('pullTile')
             ->atLeast()
             ->once();
@@ -43,7 +44,8 @@ class GameTest extends TestCase
             ->andReturn(7);
         $player2Mock->shouldReceive('isThereMatchingTile')
             ->atLeast()
-            ->once();
+            ->once()
+            ->andReturn($tileMock);
         $player2Mock->shouldReceive('pullTile')
             ->atLeast()
             ->once();

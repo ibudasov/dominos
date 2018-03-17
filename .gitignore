@@ -8,5 +8,5 @@
 /phpunit.xml
 
 /vendor/
-/var/
+/var/test-coverage/
 .php_cs.cache

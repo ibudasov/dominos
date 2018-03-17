@@ -26,10 +26,6 @@ class Board
 
         $this->addTileToTheStackInProperOrder($tile);
 
-//        $this->updateLeadingNumber($tile);
-
-//        $this->updateTrailingNumber($tile);
-
         return \count($this->tiles);
     }
 
@@ -59,9 +55,6 @@ class Board
      */
     private function updateLeadingNumber(Tile $tile): void
     {
-        if (count($this->tiles) <= 1) {
-            return;
-        }
         $firstValueOfTheTileIsMatching = ($tile->getFirstValue() === $this->leadingNumber);
         $this->leadingNumber = ($firstValueOfTheTileIsMatching)
             ? $tile->getSecondValue()
