@@ -98,7 +98,9 @@ class GameDomainService
             $activePlayer->pullTile($pulledTile);
             $matchingTile = $activePlayer->isThereMatchingTile($this->board);
 
-//            $this->output->println($activePlayer.' can\'t play, drawing tile '.$pulledTile);
+            // @todo: output shouldn't be in domain layer, but nevertheless it should be outputted
+            // $this->output->println($activePlayer.' can\'t play, drawing tile '.$pulledTile);
+
         } while (!$matchingTile instanceof Tile);
 
         return $matchingTile;
