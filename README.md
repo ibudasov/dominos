@@ -1,5 +1,6 @@
 # dominos
 
+[![CircleCI](https://circleci.com/gh/ibudasov/dominos.svg?style=svg)](https://circleci.com/gh/ibudasov/dominos)
 [![Maintainability](https://api.codeclimate.com/v1/badges/2236bd8d2413aa7e4a69/maintainability)](https://codeclimate.com/github/ibudasov/dominos/maintainability)
 [![Test Coverage](https://api.codeclimate.com/v1/badges/2236bd8d2413aa7e4a69/test_coverage)](https://codeclimate.com/github/ibudasov/dominos/test_coverage)
 
