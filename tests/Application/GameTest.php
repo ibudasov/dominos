@@ -4,69 +4,84 @@ declare(strict_types=1);
 
 use Dominos\Application\Output;
 use Dominos\Domain\Board;
+use Dominos\Domain\GameDomainService;
+use Mockery\MockInterface;
 use PHPUnit\Framework\TestCase;
 use Dominos\Domain\Player;
 use Dominos\Domain\Tile;
 use Dominos\Application\Game;
-use Dominos\Domain\Stock;
 
 class GameTest extends TestCase
 {
+    /**
+     * @var GameDomainService|MockInterface
+     */
+    private $gameService;
+    /**
+     * @var Output|MockInterface
+     */
+    private $outputMock;
+    /**
+     * @var Board|MockInterface
+     */
+    private $boardMock;
+    /**
+     * @var Player|MockInterface
+     */
+    private $playerMock;
+    /**
+     * @var Tile|MockInterface
+     */
+    private $tileMock;
+    /**
+     * @var Game
+     */
+    private $game;
+
+    protected function setUp(): void
+    {
+        $this->gameService = \Mockery::mock(GameDomainService::class);
+        $this->outputMock = \Mockery::mock(Output::class);
+        $this->boardMock = \Mockery::mock(Board::class);
+        $this->playerMock = \Mockery::mock(Player::class);
+        $this->tileMock = \Mockery::mock(Tile::class);
+
+        $this->game = new Game(
+            $this->gameService,
+            $this->outputMock
+        );
+    }
+
     public function testThatGameCanRun(): void
     {
-        $tileMock = \Mockery::mock(Tile::class);
-
-        $stockMock = \Mockery::mock(Stock::class);
-        $stockMock->shouldReceive('resetAndAdd28Tiles')
+        $this->gameService->shouldReceive('init')
             ->once()
-            ->andReturnSelf();
-        $stockMock->shouldReceive('pullRandomTile')
-            ->times(15) // 7 for player1 + 7 for player2 + 1 for board's first tile
-            ->andReturn($tileMock);
+            ->andReturn($this->boardMock);
 
-        $player1Mock = \Mockery::mock(Player::class);
-        $player1Mock->shouldReceive('pull7Tiles')
+        $this->gameService->shouldReceive('determineActivePlayer')
             ->once()
-            ->with($stockMock)
-            ->andReturn(7);
-        $player1Mock->shouldReceive('isThereMatchingTile')
+            ->andReturn($this->playerMock);
+
+        $this->gameService->shouldReceive('getBoard')
             ->atLeast()
             ->once()
-            ->andReturn($tileMock);
-        $player1Mock->shouldReceive('pullTile')
-            ->atLeast()
-            ->once();
+            ->andReturn($this->boardMock);
 
-        $player2Mock = \Mockery::mock(Player::class);
-        $player2Mock->shouldReceive('pull7Tiles')
-            ->once()
-            ->with($stockMock)
-            ->andReturn(7);
-        $player2Mock->shouldReceive('isThereMatchingTile')
+        $this->gameService->shouldReceive('playerMakesTurn')
             ->atLeast()
             ->once()
-            ->andReturn($tileMock);
-        $player2Mock->shouldReceive('pullTile')
+            ->with($this->playerMock)
+            ->andReturn($this->tileMock);
+
+        $this->gameService->shouldReceive('addTile')
+            ->atLeast()
+            ->once()
+            ->andReturn(1);
+
+        $this->outputMock->shouldReceive('println')
             ->atLeast()
             ->once();
 
-        $boardMock = \Mockery::mock(Board::class);
-        $boardMock->shouldReceive('addTile')
-            ->once();
-        $boardMock->shouldReceive('getLeadingNumber')
-            ->atLeast()
-            ->once();
-        $boardMock->shouldReceive('getTrailingNumber')
-            ->atLeast()
-            ->once();
-
-        $outputMock = \Mockery::mock(Output::class);
-        $outputMock->shouldReceive('println')
-            ->atLeast()
-            ->once();
-
-        $game = new Game($stockMock, $player1Mock, $player2Mock, $boardMock, $outputMock);
-
-        self::assertNull($game->run());
+        self::assertNull($this->game->run());
     }
 }

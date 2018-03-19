@@ -6,6 +6,7 @@ require __DIR__.'/../../vendor/autoload.php';
 
 use Dominos\Application\Game;
 use Dominos\Domain\Board;
+use Dominos\Domain\GameDomainService;
 use Dominos\Domain\Player;
 use Dominos\Domain\Stock;
 use Dominos\Infrastructure\ConsoleOutput;
@@ -23,7 +24,8 @@ class ConsoleRunner
         $board = new Board();
         $output = new ConsoleOutput();
 
-        $game = new Game($stock, $player1, $player2, $board, $output);
+        $gameService = new GameDomainService($stock, $player1, $player2, $board);
+        $game = new Game($gameService, $output);
         $game->run();
     }
 }

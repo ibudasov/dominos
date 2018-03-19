@@ -4,10 +4,12 @@ declare(strict_types=1);
 
 namespace Dominos\Infrastructure;
 
+use Dominos\Application\Output;
+
 /**
  * @codeCoverageIgnore -- infrastructure level is not meant to be tested
  */
-class ConsoleOutput implements \Dominos\Domain\Output
+class ConsoleOutput implements Output
 {
     /**
      * @param string $line
