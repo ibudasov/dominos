@@ -7,6 +7,8 @@
 Dominoes is a family of games played with rectangular tiles. Each tile is divided into two square ends. Each end is marked with a number (one to six) of spots or is blank. There are 28 tiles, one for each combination of spots and blanks (see image).
 Write a program which allows two players to play Dominoes against each other:
 
+![Dependencies](var/dominos.png)
+
 # rules
 
 - The 28 tiles are shuffled face down and form the stock. 
@@ -17,9 +19,6 @@ Write a program which allows two players to play Dominoes against each other:
 - If a player is unable to place a valid tile, they must keep on pulling tiles from the stock until they can.
 - The game ends when one player wins by playing their last tile.
 
-# dependencies in onion-style
-
-![Dependencies](var/dominos.png)
 
 # commands
 
