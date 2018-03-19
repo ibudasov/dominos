@@ -2,8 +2,8 @@
 
 declare(strict_types=1);
 
+use Dominos\Application\Output;
 use Dominos\Domain\Board;
-use Dominos\Domain\Output;
 use PHPUnit\Framework\TestCase;
 use Dominos\Domain\Player;
 use Dominos\Domain\Tile;

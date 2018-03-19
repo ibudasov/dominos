@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Dominos\Application;
 
 use Dominos\Domain\Board;
-use Dominos\Domain\Output;
 use Dominos\Domain\Player;
 use Dominos\Domain\PlayerIsOutOfTilesException;
 use Dominos\Domain\Stock;

@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Dominos\Domain;
+namespace Dominos\Application;
 
 interface Output
 {
