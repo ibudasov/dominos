@@ -2,7 +2,6 @@
 
 declare(strict_types=1);
 
-require __DIR__.'/../../vendor/autoload.php';
 
 use Dominos\Application\Game;
 use Dominos\Domain\Board;
@@ -18,6 +17,8 @@ class ConsoleRunner
 {
     public static function run(): void
     {
+        require __DIR__.'/../../vendor/autoload.php';
+
         $stock = new Stock();
         $player1 = new Player('👨 Igor');
         $player2 = new Player('💁 Kate');

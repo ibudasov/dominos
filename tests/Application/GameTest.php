@@ -5,6 +5,8 @@ declare(strict_types=1);
 use Dominos\Application\Output;
 use Dominos\Domain\Board;
 use Dominos\Domain\GameDomainService;
+use Dominos\Domain\PlayerIsOutOfTilesException;
+use Dominos\Domain\StockIsEmptyException;
 use Mockery\MockInterface;
 use PHPUnit\Framework\TestCase;
 use Dominos\Domain\Player;
@@ -72,6 +74,72 @@ class GameTest extends TestCase
             ->once()
             ->with($this->playerMock)
             ->andReturn($this->tileMock);
+
+        $this->gameService->shouldReceive('addTile')
+            ->atLeast()
+            ->once()
+            ->andReturn(1);
+
+        $this->outputMock->shouldReceive('println')
+            ->atLeast()
+            ->once();
+
+        self::assertNull($this->game->run());
+    }
+
+    public function testThatGameCanBeOverWhenNoTilesLeft(): void
+    {
+        $this->gameService->shouldReceive('init')
+            ->once()
+            ->andReturn($this->boardMock);
+
+        $this->gameService->shouldReceive('determineActivePlayer')
+            ->once()
+            ->andReturn($this->playerMock);
+
+        $this->gameService->shouldReceive('getBoard')
+            ->atLeast()
+            ->once()
+            ->andReturn($this->boardMock);
+
+        $this->gameService->shouldReceive('playerMakesTurn')
+            ->atLeast()
+            ->once()
+            ->with($this->playerMock)
+            ->andThrows(new StockIsEmptyException());
+
+        $this->gameService->shouldReceive('addTile')
+            ->atLeast()
+            ->once()
+            ->andReturn(1);
+
+        $this->outputMock->shouldReceive('println')
+            ->atLeast()
+            ->once();
+
+        self::assertNull($this->game->run());
+    }
+
+    public function testThatPlayerWinsWhenNoTilesLeftsInThehand(): void
+    {
+        $this->gameService->shouldReceive('init')
+            ->once()
+            ->andReturn($this->boardMock);
+
+        $this->gameService->shouldReceive('determineActivePlayer')
+            ->once()
+            ->andReturn($this->playerMock);
+
+        $this->gameService->shouldReceive('getBoard')
+            ->atLeast()
+            ->once()
+            ->andReturn($this->boardMock);
+
+        $this->gameService->shouldReceive('playerMakesTurn')
+            ->atLeast()
+            ->once()
+            ->with($this->playerMock)
+            ->andThrows(new PlayerIsOutOfTilesException());
 
         $this->gameService->shouldReceive('addTile')
             ->atLeast()

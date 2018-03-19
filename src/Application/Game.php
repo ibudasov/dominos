@@ -38,6 +38,7 @@ class Game
 
         try {
             for ($turn = 0; $turn < 28; ++$turn) {
+
                 $activePlayer = $this->theGame->determineActivePlayer($turn);
 
                 $tileToPlay = $this->theGame->playerMakesTurn($activePlayer);
@@ -49,10 +50,10 @@ class Game
             }
         } catch (PlayerIsOutOfTilesException $exception) {
             $this->output->println($activePlayer.' has won!');
-            exit(0);
+            return;
         } catch (StockIsEmptyException $exception) {
             $this->output->println('Game over. Nobody wins.');
-            exit(0);
+            return;
         }
     }
 }

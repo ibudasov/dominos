@@ -72,6 +72,10 @@ class GameDomainService
         }
     }
 
+    /**
+     * @param Player $activePlayer
+     * @return Tile
+     */
     public function playerMakesTurn(Player $activePlayer): Tile
     {
         $tileToPlay = $activePlayer->isThereMatchingTile($this->board);
